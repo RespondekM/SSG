@@ -14,7 +14,7 @@ def main ():
     #print (repr(testnode))
     target_path_cleanup("docs")
     copy_source_to_target("static","docs")
-    generate_page_recursively("content", "./template.html", "docs")
+    generate_page_recursively("content", "template.html", "docs")
 
 def generate_page(from_path, template_path, dest_path):
     print(f"Generating page from {from_path} to {dest_path} using {template_path}")
@@ -30,8 +30,8 @@ def generate_page(from_path, template_path, dest_path):
     content_html = content_nodes.to_html()
     #print(content_html)
     result = template_content.replace("{{ Title }}", title).replace("{{ Content }}", content_html)
-    result = result.replace('href="/',f"href={BASEPATH}")
-    result = result.replace('src="/',f"src={BASEPATH}")
+    result = result.replace('href="/',f'href="{BASEPATH}')
+    result = result.replace('src="/',f'src="{BASEPATH}')
     dir_dest = os.path.dirname(dest_path)
     if not os.path.exists(dir_dest):
         os.makedirs(dir_dest,exist_ok=True)
